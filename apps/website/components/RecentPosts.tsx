@@ -1,10 +1,10 @@
 import { Link } from '@/i18n/navigation';
 import { ArrowRight } from 'lucide-react';
-import { BlogPost } from '@/lib/posts';
+import { Post } from '@/lib/firestore';
 import Image from 'next/image';
 
 interface RecentPostsProps {
-  posts: BlogPost[];
+  posts: Post[];
 }
 
 export function RecentPosts({ posts }: RecentPostsProps) {
@@ -27,7 +27,7 @@ export function RecentPosts({ posts }: RecentPostsProps) {
                 />
               </div>
             )}
-            
+
             <div className="flex-grow min-w-0">
               <div className="flex justify-between items-start mb-2">
                 <h3 className="font-bold text-lg group-hover:text-primary transition-colors">
