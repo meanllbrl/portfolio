@@ -1,23 +1,6 @@
-@import "tailwindcss";
-@plugin "@tailwindcss/typography";
-@config "../tailwind.config.ts";
-
-@theme {
-  --font-sans: var(--font-inter);
-  --font-heading: var(--font-montserrat);
-
-  --color-background: var(--bg-primary);
-  --color-foreground: var(--text-primary);
-  --color-primary: var(--electric-blue);
-  --color-secondary: var(--gen-z-yellow);
-  --color-destructive: var(--candy-red);
-  --color-border: var(--border-color);
-  --color-ink: var(--ink-black);
-  --color-paper: var(--bg-secondary);
-
-  --shadow-hard: 5px 5px 0px var(--ink-black);
-  --shadow-hard-hover: 8px 8px 0px var(--ink-black);
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   /* ... existing vars ... */
