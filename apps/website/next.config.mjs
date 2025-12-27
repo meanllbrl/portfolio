@@ -1,6 +1,11 @@
 import createNextIntlPlugin from 'next-intl/plugin';
 
-const withNextIntl = createNextIntlPlugin();
+// Disable extraction to avoid @parcel/watcher native binding issues on Vercel
+const withNextIntl = createNextIntlPlugin({
+  experimental: {
+    extraction: false
+  }
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
