@@ -1,0 +1,46 @@
+{
+  "nav": {
+    "home": "Ana Sayfa",
+    "projects": "Projeler",
+    "blog": "Blog",
+    "contact": "İletişim",
+    "privacy": "Gizlilik",
+    "toggle_theme": "Temayı Değiştir"
+  },
+  "common": {
+    "view_project": "Projeyi İncele"
+  },
+  "work": {
+    "title": "İş Deneyimi",
+    "present": "Günümüz",
+    "education": "Eğitim"
+  },
+  "achievements": {
+    "title": "Başarılar"
+  },
+  "contact": {
+    "title": "Tanışalım",
+    "subtitle": "Aklında bir proje mi var? Birlikte harika bir şeyler inşa edelim.",
+    "email_label": "Bana Yaz",
+    "linkedin_label": "LinkedIn",
+    "github_label": "GitHub"
+  },
+  "footer": {
+    "rights": "Tüm hakları saklıdır.",
+    "built_with": "Next.js & Tailwind ile yapıldı"
+  },
+  "blog": {
+    "title": "Blog",
+    "read_time": "dk okuma",
+    "no_posts": "Henüz yazı yok. Yakında tekrar kontrol et! 🕸️",
+    "search_placeholder": "MAKALE ARA..."
+  },
+  "privacy": {
+    "title": "Gizlilik Politikası",
+    "intro": "Gizliliğiniz önemlidir. Bu politika, bu portfolyoda bilgilerin nasıl işlendiğini açıklar.",
+    "no_personal_data": "Hiçbir şekilde kişisel olarak tanımlanabilir bilgileri (PII) takip etmiyoruz veya saklamıyoruz.",
+    "analytics_title": "Analitik",
+    "analytics_text": "Kullanıcı deneyimini iyileştirmek için anonim kullanım analitikleri toplamak amacıyla Mixpanel ve Firebase kullanıyoruz. Bu araçlar cihaz türü, tarayıcı bilgileri ve ziyaret edilen sayfalar gibi kişisel olmayan bilgileri toplayabilir.",
+    "contact_text": "Bu gizlilik politikası hakkında herhangi bir sorunuz varsa, benimle iletişime geçmekten çekinmeyin."
+  }
+}

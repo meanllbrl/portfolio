@@ -1,0 +1,46 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "blog": "Blog",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "toggle_theme": "Toggle Theme"
+  },
+  "common": {
+    "view_project": "View Project"
+  },
+  "work": {
+    "title": "Work Experience",
+    "education": "Education",
+    "present": "Present"
+  },
+  "achievements": {
+    "title": "Achievements"
+  },
+  "contact": {
+    "title": "Let's Chat",
+    "subtitle": "Got a project in mind? Let's build something awesome.",
+    "email_label": "Email Me",
+    "linkedin_label": "LinkedIn",
+    "github_label": "GitHub"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "built_with": "Built with Next.js & Tailwind"
+  },
+  "blog": {
+    "title": "Blog",
+    "read_time": "min read",
+    "no_posts": "No posts found yet. Check back soon! 🕸️",
+    "search_placeholder": "SEARCH ARTICLES..."
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "intro": "Your privacy is important. This policy explains how information is handled on this portfolio.",
+    "no_personal_data": "We do not track or store any personally identifiable information (PII) whatsoever.",
+    "analytics_title": "Analytics",
+    "analytics_text": "We use Mixpanel and Firebase to collect anonymous usage analytics to improve the user experience. These tools may collect non-personal information such as device type, browser information, and pages visited.",
+    "contact_text": "If you have any questions about this privacy policy, feel free to contact me."
+  }
+}
