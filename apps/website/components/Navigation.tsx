@@ -47,9 +47,9 @@ export function Navigation() {
           onClick={handleHomeClick}
         >
           {loading ? (
-             <div className="h-6 w-20 bg-gray-200 dark:bg-zinc-800 animate-pulse rounded"></div>
+            <div className="h-6 w-20 bg-gray-200 dark:bg-zinc-800 animate-pulse rounded"></div>
           ) : (
-             data?.logoText || "Portfolio."
+            data?.logoText || "Portfolio."
           )}
         </Link>
 
@@ -74,30 +74,30 @@ export function Navigation() {
 
       {isMenuOpen && (
         <div className="absolute top-full left-0 w-full mt-4 bg-white/95 dark:bg-black/95 backdrop-blur-md border-3 border-ink rounded-3xl shadow-hard p-6 flex flex-col items-center gap-6 md:hidden">
-          <Link 
-            href="/" 
-            className="text-lg font-heading font-bold hover:text-primary transition-colors" 
-            onClick={(e) => { handleHomeClick(e); setIsMenuOpen(false); }}
+          <Link
+            href="/"
+            className="text-lg font-heading font-bold hover:text-primary transition-colors"
+            onClick={(e: React.MouseEvent<HTMLAnchorElement>) => { handleHomeClick(e); setIsMenuOpen(false); }}
           >
             {t('home')}
           </Link>
-          <Link 
-            href="/projects" 
-            className="text-lg font-heading font-bold hover:text-primary transition-colors" 
+          <Link
+            href="/projects"
+            className="text-lg font-heading font-bold hover:text-primary transition-colors"
             onClick={() => setIsMenuOpen(false)}
           >
             {t('projects')}
           </Link>
-          <Link 
-            href="/blog" 
-            className="text-lg font-heading font-bold hover:text-primary transition-colors" 
+          <Link
+            href="/blog"
+            className="text-lg font-heading font-bold hover:text-primary transition-colors"
             onClick={() => setIsMenuOpen(false)}
           >
             {t('blog')}
           </Link>
-          <Link 
-            href="/contact" 
-            className="text-lg font-heading font-bold hover:text-primary transition-colors" 
+          <Link
+            href="/contact"
+            className="text-lg font-heading font-bold hover:text-primary transition-colors"
             onClick={() => setIsMenuOpen(false)}
           >
             {t('contact')}
