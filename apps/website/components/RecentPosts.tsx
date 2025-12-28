@@ -2,6 +2,7 @@ import { Link } from '@/i18n/navigation';
 import { ArrowRight } from 'lucide-react';
 import { Post } from '@/lib/firestore';
 import Image from 'next/image';
+import { ExcerptRenderer } from './ExcerptRenderer';
 
 interface RecentPostsProps {
   posts: Post[];
@@ -39,9 +40,9 @@ export function RecentPosts({ posts }: RecentPostsProps) {
                 </div>
               </div>
 
-              <p className="text-sm text-muted-foreground line-clamp-2 mb-3 max-w-[90%]">
-                {post.excerpt}
-              </p>
+              <div className="text-sm text-muted-foreground line-clamp-2 mb-3 max-w-[90%]">
+                <ExcerptRenderer content={post.excerpt} />
+              </div>
 
               <div className="flex flex-wrap gap-2">
                 {(post.tags || []).slice(0, 3).map((tag: string) => (

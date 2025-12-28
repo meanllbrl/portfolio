@@ -1,5 +1,5 @@
 import { Hero } from '@/components/Hero';
-import { ProjectCard } from '@/components/ProjectCard';
+import { FeaturedProjectsGrid } from '@/components/FeaturedProjectsGrid';
 import { WorkExperience } from '@/components/WorkExperience';
 import { RecentPosts } from '@/components/RecentPosts';
 import { Footer } from '@/components/Footer';
@@ -42,21 +42,7 @@ export default async function HomePage({
             view more <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {featuredProjects.map((project: any) => (
-            <ProjectCard
-              key={project.id}
-              title={project.title}
-              subtitle={project.subtitle}
-              description={project.description}
-              tags={project.tags}
-              slug={project.slug || project.id}
-              image={project.image}
-              link={project.link}
-              githubUrl={project.githubUrl}
-            />
-          ))}
-        </div>
+        <FeaturedProjectsGrid projects={featuredProjects} />
       </section>
       <section id="blog" className="scroll-mt-24">
         <div className="flex items-center justify-between mb-8">

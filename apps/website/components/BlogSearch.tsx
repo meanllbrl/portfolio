@@ -141,12 +141,14 @@ export function BlogSearch({ initialPosts, allTags }: BlogSearchProps) {
                 </div>
             </div>
 
-            {/* Results Grid */}
+            {/* Results Grid - Masonry Layout */}
             <div className="min-h-[400px]">
                 {filteredPosts.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="columns-1 md:columns-2 gap-8 space-y-8">
                         {filteredPosts.map((post) => (
-                            <BlogCard key={post.slug} post={post} />
+                            <div key={post.slug} className="break-inside-avoid">
+                                <BlogCard post={post} />
+                            </div>
                         ))}
                     </div>
                 ) : (

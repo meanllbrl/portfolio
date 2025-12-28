@@ -67,10 +67,18 @@ export function EducationList({ initialItems }: EducationListProps) {
                 onReorder={handleReorder}
                 className="grid gap-4 md:grid-cols-2 lg:grid-cols-3"
                 itemClassName="h-full"
-                renderItem={(edu) => (
+                strategy="grid"
+                renderItem={(edu, dragListeners) => (
                     <Card key={edu.id} className="group relative">
                         {/* Drag Handle */}
-                        <div className="absolute top-2 right-2 p-2 cursor-grab active:cursor-grabbing text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 rounded z-10">
+                        <div 
+                            {...dragListeners}
+                            className="absolute top-2 right-2 p-2 cursor-grab active:cursor-grabbing text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 rounded z-10 touch-none"
+                            onPointerDown={(e) => {
+                                e.stopPropagation();
+                                dragListeners?.onPointerDown?.(e);
+                            }}
+                        >
                             <GripVertical className="h-5 w-5" />
                         </div>
 

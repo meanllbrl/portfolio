@@ -18,6 +18,117 @@ The application uses Google Cloud Firestore (NoSQL). Below are the primary colle
 
 ---
 
+## Entity Relationship Diagram
+
+Below is the complete ER diagram showing all collections, their fields, and logical relationships. Note that relationships are implemented via denormalized `RelatedItemStub` arrays rather than foreign keys (see [Data Management Strategy](#data-management-strategy) below).
+
+```mermaid
+erDiagram
+    %% CORE COLLECTIONS
+    PROJECT {
+        string id PK
+        string title
+        string subtitle
+        string description
+        string image
+        string smallImage
+        int featured
+        string status
+        int sortOrder
+        string githubUrl
+        string link
+        string_array tags
+        object_array gallery "List<GalleryItem>"
+        object_array urls "List<Link>"
+        object_array relatedExperience "List<RelatedItemStub>"
+        object_array relatedEducation "List<RelatedItemStub>"
+        object_array relatedPosts "List<RelatedItemStub>"
+    }
+
+    EXPERIENCE {
+        string id PK
+        string title
+        string workTitle
+        string description
+        string years
+        string image
+        object_array urls "List<Link>"
+        object_array relatedProjects "List<RelatedItemStub>"
+    }
+
+    EDUCATION {
+        string id PK
+        string title
+        string department
+        string years
+        string gpa
+        int sortOrder
+        object_array urls "List<Link>"
+        object_array relatedProjects "List<RelatedItemStub>"
+        object_array relatedPosts "List<RelatedItemStub>"
+    }
+
+    POST {
+        string id PK
+        string title
+        string slug
+        string excerpt
+        string content
+        string date
+        string coverImage
+        string smallImage
+        string status
+        string_array tags
+        object_array relatedProjects "List<RelatedItemStub>"
+        object_array relatedExperience "List<RelatedItemStub>"
+        object_array relatedEducation "List<RelatedItemStub>"
+    }
+
+    %% STANDALONE COLLECTIONS
+    ACHIEVEMENT {
+        string id PK
+        string title
+        string description
+        string date
+        string icon
+        int sortOrder
+    }
+
+    RECOMMENDATION {
+        string id PK
+        string name
+        string thought
+        string status
+        timestamp createdAt
+        string photoUrl
+        string linkedinUrl
+    }
+
+    HERO_SETTINGS {
+        string id PK "singleton"
+        string fullName
+        string greeting
+        string role
+        string description
+        string logoText
+        string imageUrl
+        string resumeUrl
+        object socials
+    }
+
+    %% RELATIONSHIPS (LOGICAL)
+    %% Modeled as Many-to-Many via Denormalized Stubs
+
+    PROJECT }|..|{ EXPERIENCE : "contains related stub"
+    PROJECT }|..|{ EDUCATION : "contains related stub"
+    PROJECT }|..|{ POST : "contains related stub"
+    
+    POST }|..|{ EXPERIENCE : "contains related stub"
+    POST }|..|{ EDUCATION : "contains related stub"
+```
+
+---
+
 ## 1. `projects`
 
 Stores detailed information about projects, including media galleries and relations.

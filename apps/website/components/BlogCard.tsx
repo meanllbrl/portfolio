@@ -5,6 +5,7 @@ import { BlogPost } from '@/lib/posts';
 import { useTranslations } from 'next-intl';
 import { trackEvent } from '@/lib/mixpanel';
 import Image from 'next/image';
+import { ExcerptRenderer } from './ExcerptRenderer';
 
 interface BlogCardProps {
   post: BlogPost;
@@ -26,7 +27,7 @@ export function BlogCard({ post }: BlogCardProps) {
 
   return (
     <Link href={`/blog/${post.slug}`} className="block group" onClick={handlePostClick}>
-      <article className="card p-6 h-full flex flex-col hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors">
+      <article className="card p-6 flex flex-col hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors">
         {displayImage && (
           <div className="relative w-full h-48 mb-4 rounded-lg overflow-hidden border-2 border-black dark:border-white/20">
             <Image
@@ -50,9 +51,9 @@ export function BlogCard({ post }: BlogCardProps) {
           {post.title}
         </h3>
 
-        <p className="text-muted-foreground mb-6 flex-grow">
-          {post.excerpt}
-        </p>
+        <div className="text-muted-foreground mb-6 flex-grow">
+          <ExcerptRenderer content={post.excerpt} />
+        </div>
 
         <div className="flex items-center justify-between text-sm text-gray-500 font-medium border-t border-gray-200 dark:border-gray-800 pt-4 mt-auto">
           <span>{post.date}</span>

@@ -2,10 +2,10 @@ import { useTranslations } from 'next-intl';
 import { Footer } from '@/components/Footer';
 import { getPostBySlug } from '@/lib/firestore'; // Import from firestore
 import { notFound } from 'next/navigation';
-import { remark } from 'remark';
-import html from 'remark-html';
 import { ReadTimeTracker } from '@/components/ReadTimeTracker';
 import Image from 'next/image';
+import { MarkdownRenderer } from '@/components/MarkdownRenderer';
+import { RelatedContent } from '@/components/RelatedContent';
 
 export default async function BlogPostPage({
   params
@@ -18,15 +18,6 @@ export default async function BlogPostPage({
 
   if (!post) {
     notFound();
-  }
-
-  // Convert markdown content to HTML if needed
-  let contentHtml = post.content;
-  if (post.content && !post.content.includes('<')) {
-    const processedContent = await remark()
-      .use(html)
-      .process(post.content);
-    contentHtml = processedContent.toString();
   }
 
   return (
@@ -62,12 +53,14 @@ export default async function BlogPostPage({
           </div>
         )}
 
-        <div
-          className="prose prose-lg dark:prose-invert max-w-none 
-            prose-headings:font-heading prose-headings:font-bold 
-            prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-            prose-img:rounded-xl prose-img:border-3 prose-img:border-ink prose-img:shadow-hard"
-          dangerouslySetInnerHTML={{ __html: contentHtml || '' }}
+        <MarkdownRenderer content={post.content || ''} />
+        
+        <RelatedContent 
+          items={[
+            ...(post.relatedProjects || []).map((p: any) => ({ ...p, type: 'project' as const })),
+            ...(post.relatedExperience || []).map((e: any) => ({ ...e, type: 'experience' as const })),
+            ...(post.relatedEducation || []).map((e: any) => ({ ...e, type: 'education' as const })),
+          ]} 
         />
       </article>
 

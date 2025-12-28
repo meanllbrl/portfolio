@@ -13,6 +13,8 @@ A modern, bilingual portfolio website ecosystem with a public-facing site and a 
 
 Check out the live portfolio at **[nuraydin.com](https://nuraydin.com)** to see it in action!
 
+![Website Demo](https://firebasestorage.googleapis.com/v0/b/mehmet-nuraydin.firebasestorage.app/o/uploads%2FAds%C4%B1z%20tasar%C4%B1m2.gif?alt=media&token=ce211425-4d08-4319-ba3d-2df361ba4c10)
+
 ---
 
 ## 🎯 Project Philosophy
@@ -54,6 +56,8 @@ graph TD
 |-----|------|------|-------------|
 | **Website** | [`apps/website`](./apps/website) | `:3000` | Public portfolio. Server Components, i18n, Analytics. |
 | **Admin** | [`apps/admin`](./apps/admin) | `:3001` | Private CMS. Secure, Server Actions, Drag-n-Drop. |
+
+![Admin Panel Demo](https://firebasestorage.googleapis.com/v0/b/mehmet-nuraydin.firebasestorage.app/o/uploads%2FAds%C4%B1z%20tasar%C4%B1m.gif?alt=media&token=faa246a6-b1ab-494d-a46c-03bc9fc322f4)
 
 ---
 

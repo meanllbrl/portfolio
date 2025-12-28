@@ -20,6 +20,13 @@ export function WorkExperience() {
   const [imagesLoaded, setImagesLoaded] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
+    // Check hash on mount to set initial tab
+    if (typeof window !== 'undefined') {
+      if (window.location.hash.includes('education')) {
+        setActiveTab('education');
+      }
+    }
+
     async function fetchData() {
       setLoading(true);
       try {
@@ -41,6 +48,20 @@ export function WorkExperience() {
     }
     fetchData();
   }, []);
+
+  // Handle scroll after data load
+  useEffect(() => {
+    if (!loading && typeof window !== 'undefined' && window.location.hash) {
+      // Small timeout to ensure DOM is ready
+      setTimeout(() => {
+        const id = window.location.hash.substring(1);
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 100);
+    }
+  }, [loading, activeTab]);
 
   const handleImageLoad = (id: string) => {
     setImagesLoaded(prev => ({ ...prev, [id]: true }));
@@ -70,7 +91,11 @@ export function WorkExperience() {
         ) : (
           <div className="divide-y-2 divide-gray-100 dark:divide-gray-800">
             {(activeTab === 'work' ? workData : eduData).map((item: any, index: number) => (
-              <div key={item.id || index} className="p-6 flex flex-col md:flex-row gap-4 hover:bg-gray-50 dark:hover:bg-gray-900/20 transition-colors">
+              <div 
+                key={item.id || index} 
+                id={`${activeTab === 'work' ? 'experience' : 'education'}-${item.id}`}
+                className="p-6 flex flex-col md:flex-row gap-4 hover:bg-gray-50 dark:hover:bg-gray-900/20 transition-colors scroll-mt-24"
+              >
                 {/* Image Section */}
                 <div className="shrink-0">
                   <div className={`relative w-16 h-16 rounded-full overflow-hidden border border-gray-200 dark:border-gray-700 ${item.image && !imagesLoaded[item.id] ? 'animate-pulse bg-gray-200 dark:bg-gray-800' : ''}`}>

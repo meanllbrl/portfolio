@@ -3,11 +3,12 @@ import { getProjectBySlug } from '@/lib/firestore';
 import { ArrowLeft, Github, Globe, Calendar, Check } from 'lucide-react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import ReactMarkdown from 'react-markdown';
+import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 import { Footer } from '@/components/Footer';
 import { ProjectGallery } from '@/components/ProjectGallery';
 import { ReadTimeTracker } from '@/components/ReadTimeTracker';
 import { TrackLink } from '@/components/TrackLink';
+import { RelatedContent } from '@/components/RelatedContent';
 
 interface Props {
     params: Promise<{
@@ -164,15 +165,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                 </div>
 
                 {/* Main Content */}
-                <div className="prose prose-lg dark:prose-invert max-w-none mb-12
-                    prose-headings:font-heading prose-headings:font-black prose-headings:uppercase
-                    prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-                    prose-img:rounded-xl prose-img:border-2 prose-img:border-gray-100 dark:prose-img:border-gray-800
-                ">
-                    <ReactMarkdown>
-                        {project.description}
-                    </ReactMarkdown>
-                </div>
+                <MarkdownRenderer content={project.description} className="mb-12" />
 
                 {/* Roadmap Section */}
                 {project.roadmap && project.roadmap.length > 0 && (
@@ -198,6 +191,14 @@ export default async function ProjectDetailPage({ params }: Props) {
                         </div>
                     </div>
                 )}
+
+                <RelatedContent 
+                    items={[
+                        ...(project.relatedPosts || []).map((p: any) => ({ ...p, type: 'post' as const })),
+                        ...(project.relatedExperience || []).map((e: any) => ({ ...e, type: 'experience' as const })),
+                        ...(project.relatedEducation || []).map((e: any) => ({ ...e, type: 'education' as const })),
+                    ]} 
+                />
             </div>
             <Footer />
         </div>
