@@ -2,7 +2,6 @@ import { Hero } from '@/components/Hero';
 import { ProjectCard } from '@/components/ProjectCard';
 import { WorkExperience } from '@/components/WorkExperience';
 import { RecentPosts } from '@/components/RecentPosts';
-import { Achievements } from '@/components/Achievements';
 import { Footer } from '@/components/Footer';
 import { Link } from '@/i18n/navigation';
 import { ArrowRight } from 'lucide-react';
@@ -10,6 +9,8 @@ import { getSortedPostsData } from '@/lib/posts';
 import { projectsData } from '@/lib/data';
 import { getProjects, getPosts } from '@/lib/firestore'; // Import getPosts
 import { FEATURED_LEVELS } from '@/lib/constants';
+
+import { Recommendations } from '@/components/Recommendations';
 
 export default async function HomePage({
   params
@@ -57,14 +58,6 @@ export default async function HomePage({
           ))}
         </div>
       </section>
-      <section id="achievements" className="scroll-mt-24">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="font-heading font-black text-3xl md:text-4xl lowercase text-ink">
-            achievements
-          </h2>
-        </div>
-        <Achievements />
-      </section>
       <section id="blog" className="scroll-mt-24">
         <div className="flex items-center justify-between mb-8">
           <h2 className="font-heading font-black text-3xl md:text-4xl lowercase text-ink">
@@ -76,6 +69,9 @@ export default async function HomePage({
         </div>
         <RecentPosts posts={posts} />
       </section>
+      
+      <Recommendations />
+
       <Footer />
     </div>
   );

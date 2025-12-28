@@ -2,9 +2,32 @@
 "use server";
 
 import { adminDb } from "@/lib/admin"; // Import Admin SDK
-import { Education, Experience, Hero, Project, Post, Achievement } from "@/lib/types";
+import { Education, Experience, Hero, Project, Post, Achievement, Recommendation } from "@/lib/types";
 import fs from "fs/promises";
 import path from "path";
+
+function normalizeCreatedAt(value: unknown): string {
+    // Already an ISO string (or at least parseable as date)
+    if (typeof value === "string") {
+        const t = Date.parse(value);
+        return Number.isFinite(t) ? new Date(t).toISOString() : new Date().toISOString();
+    }
+
+    // Firestore Timestamp (admin/client) usually has toDate()
+    if (value && typeof value === "object" && "toDate" in value) {
+        const maybeToDate = (value as { toDate?: () => Date }).toDate;
+        if (typeof maybeToDate === "function") {
+            const d = maybeToDate.call(value);
+            return d instanceof Date && Number.isFinite(d.getTime()) ? d.toISOString() : new Date().toISOString();
+        }
+    }
+
+    // Plain Date
+    if (value instanceof Date && Number.isFinite(value.getTime())) return value.toISOString();
+
+    // Fallback: "now" to keep UI and sorting consistent
+    return new Date().toISOString();
+}
 
 // Helper to ensure Admin SDK is initialized
 function getAdminDb() {
@@ -119,6 +142,85 @@ export async function getHero(): Promise<Hero | null> {
         return docSnap.data() as Hero;
     }
     return null;
+}
+
+// --- Recommendations ---
+
+export async function getRecommendations(): Promise<Recommendation[]> {
+    const db = getAdminDb();
+    const snapshot = await db.collection("recommendations").get();
+    const items = snapshot.docs.map(doc => ({ 
+        id: doc.id, 
+        ...doc.data(),
+        createdAt: normalizeCreatedAt(doc.data().createdAt),
+    } as Recommendation));
+
+    // Sort by createdAt desc
+    items.sort((a, b) => {
+        const dateA = new Date(a.createdAt).getTime();
+        const dateB = new Date(b.createdAt).getTime();
+        return dateB - dateA;
+    });
+
+    return items;
+}
+
+export async function getRecommendation(id: string): Promise<Recommendation | null> {
+    const db = getAdminDb();
+    const docSnap = await db.collection("recommendations").doc(id).get();
+    if (docSnap.exists) {
+        const data = docSnap.data();
+        return { 
+            id: docSnap.id, 
+            ...data,
+            createdAt: normalizeCreatedAt(data?.createdAt),
+        } as Recommendation;
+    }
+    return null;
+}
+
+export async function saveRecommendation(recommendation: Recommendation) {
+    try {
+        const db = getAdminDb();
+        
+        const isNew = !recommendation.id;
+        let id: string;
+        
+        if (isNew) {
+            const newDocRef = db.collection("recommendations").doc();
+            id = newDocRef.id;
+            recommendation.id = id;
+            if (!recommendation.createdAt) {
+                recommendation.createdAt = new Date().toISOString();
+            }
+        } else {
+            id = recommendation.id!;
+        }
+
+        // Remove id from data to save
+        const { id: _, ...data } = recommendation;
+        
+        // Ensure status is valid
+        if (!data.status) data.status = 'draft';
+
+        await db.collection("recommendations").doc(id).set(data, { merge: true });
+        
+        const { revalidatePath } = await import("next/cache");
+        revalidatePath("/recommendations");
+        return { success: true, id };
+    } catch (error) {
+        console.error("Error saving recommendation:", error);
+        return { success: false, error: String(error) };
+    }
+}
+
+export async function deleteRecommendation(id: string) {
+    const db = getAdminDb();
+    const { revalidatePath } = await import("next/cache");
+
+    await db.collection("recommendations").doc(id).delete();
+    revalidatePath("/recommendations");
+    return { success: true };
 }
 
 // --- Sync ---

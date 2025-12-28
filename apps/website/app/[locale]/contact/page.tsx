@@ -29,12 +29,9 @@ export default function ContactPage() {
   }, []);
 
   return (
-    <div className="container mx-auto px-5 py-20 max-w-[800px] min-h-screen flex flex-col">
+    <div className="container mx-auto px-5 py-20 max-w-4xl min-h-screen flex flex-col">
       <div className="flex-grow flex flex-col justify-center">
-        <h1 className="heading-hero mb-6">{t('title')}</h1>
-        <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-2xl">
-          {t('subtitle')}
-        </p>
+        <h1 className="heading-hero mb-12 lowercase">{t('title')}</h1>
 
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

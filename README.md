@@ -1,206 +1,179 @@
-# Portfolio
+# Portfolio Monorepo
 
-A modern, bilingual portfolio website with a dedicated admin panel for content management. Built with Next.js 14, TypeScript, Firebase, and Tailwind CSS.
+A modern, bilingual portfolio website ecosystem with a public-facing site and a private content management system. Built with **Next.js 16**, **TypeScript**, **Firebase**, and **Tailwind CSS 4**.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Next.js](https://img.shields.io/badge/Next.js-14-black)
+![Next.js](https://img.shields.io/badge/Next.js-16-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)
 ![Firebase](https://img.shields.io/badge/Firebase-Firestore-orange)
 
 ---
 
-## ️ Architecture
+## 🎯 Project Philosophy
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                        Firebase                              │
-│  ┌─────────────┐  ┌─────────────┐                           │
-│  │  Firestore  │  │   Storage   │                           │
-│  └──────┬──────┘  └──────┬──────┘                           │
-└─────────┼────────────────┼──────────────────────────────────┘
-          │                │
-    ┌─────┴────────────────┴─────┐
-    │                            │
-    ▼ READ ONLY                  ▼ FULL ACCESS (Admin SDK)
-┌──────────────┐          ┌──────────────────┐
-│   Website    │          │      Admin       │
-│ apps/website │          │   apps/admin     │
-│              │          │                  │
-│  - Public    │          │  - Private CMS   │
-│  - i18n      │          │  - Full CRUD     │
-│  - Mixpanel  │          │  - Service Acct  │
-└──────────────┘          └──────────────────┘
-     :3000                      :3001
-```
+This portfolio is designed to be **"Agentic-First"** and **AI-Native**. It serves as a living proof of concept for:
+- **Technical Product Management**: Clean architecture, scalable systems.
+- **AI Integration**: Prepared for future agentic workflows.
+- **Global Reach**: First-class bilingual support (Turkish/English).
+- **Polished Authenticity**: A design system that is bold, playful, and minimalist.
 
 ---
 
-## � Project Structure
+## 🏗️ Architecture
 
-```
-portfolio/
-├── apps/
-│   ├── website/           # Public portfolio website
-│   │   ├── app/           # Next.js App Router
-│   │   ├── components/    # React components
-│   │   ├── lib/           # Firebase, utilities
-│   │   ├── messages/      # i18n translations
-│   │   └── README.md      # Website setup guide
-│   │
-│   └── admin/             # Private CMS
-│       ├── app/           # Next.js + Server Actions
-│       ├── components/    # Form components, UI
-│       ├── lib/           # Firebase Admin SDK
-│       └── README.md      # Admin setup guide
-│
-├── docs/                  # Documentation
-│   ├── DATA_STRUCTURES.md # Firestore schema
-│   ├── PRD.md             # Product requirements
-│   └── STYLE_GUIDE.md     # Design system
-│
-├── CONTRIBUTING.md        # Contribution guidelines
-├── LICENSE                # MIT License
-└── README.md              # This file
+The project is structured as a **Monorepo** using npm workspaces.
+
+```mermaid
+graph TD
+    User[Visitor] --> Website[apps/website]
+    Admin[You] --> CMS[apps/admin]
+    
+    subgraph Firebase
+        Firestore[(Firestore DB)]
+        Storage[(Storage Bucket)]
+    end
+    
+    Website -->|Read Only| Firestore
+    Website -->|Read Only| Storage
+    
+    CMS -->|Full CRUD| Firestore
+    CMS -->|Upload| Storage
 ```
 
----
+### Applications
 
-## ✨ Features
-
-### Website (Public)
-- 🌍 **Bilingual** - Full i18n support (English/Turkish)
-- 🎨 **Custom Design System** - "Polished Authenticity" aesthetic
-- ⚡ **Performance** - Server Components + optimized images
-- 📊 **Analytics** - Mixpanel integration
-- 🔍 **SEO Optimized** - Meta tags, Open Graph, structured data
-
-### Admin (CMS)
-- 📝 **Full CRUD** - Manage projects, experience, education, blog posts
-- 🔗 **Smart Relations** - Two-way relationship sync between documents
-- 🗑️ **Safe Delete** - Cleans up references before deletion
-- 📤 **Media Upload** - Firebase Storage integration
+| App | Path | Port | Description |
+|-----|------|------|-------------|
+| **Website** | [`apps/website`](./apps/website) | `:3000` | Public portfolio. Server Components, i18n, Analytics. |
+| **Admin** | [`apps/admin`](./apps/admin) | `:3001` | Private CMS. Secure, Server Actions, Drag-n-Drop. |
 
 ---
 
 ## 🚀 Quick Start
 
-### Prerequisites
-
-- **Node.js 18+**
-- **Firebase Project** with Firestore and Storage enabled
-- **Mixpanel Account** (optional, for analytics)
-
-### 1. Clone the Repository
-
+### 1. Clone & Install
 ```bash
 git clone https://github.com/meanllbrl/portfolio.git
 cd portfolio
+npm install
 ```
 
-### 2. Set Up Firebase
+### 2. Environment Setup
+You need a Firebase project. Create one at [console.firebase.google.com](https://console.firebase.google.com).
 
-1. Go to [Firebase Console](https://console.firebase.google.com/)
-2. Create a new project (or use existing)
-3. Enable **Firestore Database**
-4. Enable **Storage**
-
-### 3. Configure Security Rules
-
-**Firestore Rules** (Firebase Console → Firestore → Rules):
-
-```javascript
-rules_version = '2';
-
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /{document=**} {
-      allow read: if true;
-      allow write: if false;
-    }
-  }
-}
-```
-
-**Storage Rules** (Firebase Console → Storage → Rules):
-
-```javascript
-rules_version = '2';
-
-service firebase.storage {
-  match /b/{bucket}/o {
-    match /{allPaths=**} {
-      allow read: if true;
-      allow write: if false;
-    }
-  }
-}
-```
-
-> ⚠️ The Admin CMS uses a Service Account to bypass these rules.
-
-### 4. Set Up Each App
-
-#### Website
+**Website:**
 ```bash
 cd apps/website
 cp env.example .env.local
-# Edit .env.local with Firebase config
-npm install
-npm run dev
+# Add your Firebase Config keys
 ```
-Open [http://localhost:3000](http://localhost:3000)
 
-#### Admin
+**Admin:**
 ```bash
 cd apps/admin
 cp env.example .env.local
-# Edit .env.local with Firebase config + Service Account key
-npm install
-npm run dev
+# Add Firebase Config + Admin Service Account Key
 ```
-Open [http://localhost:3001](http://localhost:3001)
 
-> 📖 See each app's README for detailed setup instructions.
+### 3. Run Development Servers
+From the **root** directory:
 
----
-
-## �️ Required Services
-
-| Service | Required | Purpose |
-|---------|----------|---------|
-| Firebase Firestore | ✅ Yes | Database |
-| Firebase Storage | ✅ Yes | Image uploads |
-| Mixpanel | ⚪ Optional | Analytics |
+| Command | Action |
+|---------|--------|
+| `npm run dev:website` | Starts the **Website** at `localhost:3000` |
+| `npm run dev:admin` | Starts the **Admin** at `localhost:3001` |
+| `npm run build` | Builds both apps |
 
 ---
 
-## � Documentation
+## 🛠️ Tech Stack
+
+### Core
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
+- **Database**: [Firebase Firestore](https://firebase.google.com/products/firestore)
+- **Storage**: [Firebase Storage](https://firebase.google.com/products/storage)
+
+### Website Specifics
+- **i18n**: [`next-intl`](https://next-intl-docs.vercel.app/) (Middleware-based routing)
+- **Content**: [`react-markdown`](https://github.com/remarkjs/react-markdown), `remark`, `rehype`
+- **Theming**: `next-themes` (Dark/Light mode)
+
+### Admin Specifics
+- **Forms**: `react-hook-form` + `zod` validation
+- **UI**: `shadcn/ui` (Radix Primitives)
+- **Interactivity**: `@dnd-kit` (Drag & Drop reordering)
+- **Security**: `firebase-admin` (Server-side privileged access)
+
+## 📚 Documentation
+
+Detailed documentation for different aspects of the project can be found in the [`docs/`](./docs) folder:
 
 | Document | Description |
 |----------|-------------|
-| [Website README](./apps/website/README.md) | Public website setup |
-| [Admin README](./apps/admin/README.md) | CMS setup with Service Account |
-| [Data Structures](./docs/DATA_STRUCTURES.md) | Firestore schema |
-| [Style Guide](./docs/STYLE_GUIDE.md) | Design system |
-| [PRD](./docs/PRD.md) | Product requirements |
+| [**Data Structures**](./docs/DATA_STRUCTURES.md) | Firestore collections, document schemas, and TypeScript interfaces. |
+| [**Style Guide**](./docs/STYLE_GUIDE.md) | Design system, color palettes, and UI components standards. |
+| [**PRD**](./docs/PRD.md) | Product Requirements Document and strategic vision. |
 
 ---
 
-## � Security
+## 📂 Project Structure
 
-| Component | Access Level | How |
-|-----------|--------------|-----|
-| Website | Read-only | Firestore rules + Client SDK |
-| Admin | Full access | Firebase Admin SDK (Service Account) |
-
-> ⚠️ **Never deploy the Admin app publicly without authentication!**
+```
+portfolio/
+├── apps/
+│   ├── website/           # Public Frontend
+│   │   ├── app/[locale]/  # i18n Routes
+│   │   ├── content/       # Blog Markdown files
+│   │   └── messages/      # Translation JSONs
+│   │
+│   └── admin/             # Private CMS
+│       ├── app/           # Dashboard Routes
+│       └── lib/           # Admin SDK logic
+│
+├── docs/                  # Documentation
+│   ├── DATA_STRUCTURES.md # DB Schema
+│   ├── PRD.md             # Product Strategy
+│   └── STYLE_GUIDE.md     # Design System
+│
+└── package.json           # Workspaces config
+```
 
 ---
 
-## 🤝 Contributing
+## 🔒 Security Model
 
-Contributions are welcome! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+1.  **Firestore Rules**: Lock down **writes** completely for most collections. Allow public **creation** only for the `recommendations` collection (as drafts).
+2.  **Admin SDK**: The Admin app uses a Service Account Key (server-side) to bypass Firestore rules, granting full control.
+3.  **Safety**: 
+    - Never expose the `FIREBASE_ADMIN_SDK_KEY` in client-side code.
+    - The Admin app is designed to be run locally or behind strict authentication.
 
+### Recommended Firestore Rules
+```javascript
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Public Read-Only Collections
+    match /projects/{doc=**} { allow read: if true; }
+    match /posts/{doc=**} { allow read: if true; }
+    match /experiences/{doc=**} { allow read: if true; }
+    match /educations/{doc=**} { allow read: if true; }
+    match /achievements/{doc=**} { allow read: if true; }
+    match /settings/{doc=**} { allow read: if true; }
+
+    // Recommendations System
+    match /recommendations/{id} {
+      allow read: if resource.data.status == 'published';
+      allow create: if request.resource.data.status == 'draft'
+                    && request.resource.data.name is string
+                    && request.resource.data.thought is string;
+      allow update, delete: if false; // Handled by Admin SDK
+    }
+  }
+}
+```
 ---
 
 ## 📄 License

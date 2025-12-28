@@ -83,13 +83,12 @@ admin/
 ## 🔐 Security Model
 
 ```
-Firestore Rules: allow write: false
+Firestore Rules: allow write: false (except /recommendations create)
          ↓
     BUT Admin SDK BYPASSES rules
          ↓
     Full read/write access
 ```
-
 **Best Practices:**
 - ✅ Run locally
 - ✅ Add auth for production
@@ -102,3 +101,4 @@ Firestore Rules: allow write: false
 
 - [Website](../website/README.md)
 - [Data Structures](../../docs/DATA_STRUCTURES.md)
+

@@ -1,78 +1,144 @@
-# Website (Public Portfolio)
+# Portfolio Website (Public)
 
-The public-facing portfolio website. Built with Next.js 14, featuring server-side rendering, i18n support, and a custom design system.
+The public-facing frontend of the portfolio ecosystem. A highly optimized, bilingual (EN/TR), and accessible personal website.
 
-> 📖 **Part of a monorepo** - See the [root README](../../README.md) for full project overview.
+> 📖 **Part of a monorepo** - See the [root README](../../README.md) for the full architecture.
 
 ---
 
 ## ✨ Features
 
-- 🌍 **Bilingual Support** - Full i18n (English/Turkish)
-- 🎨 **Custom Design System** - "Polished Authenticity" aesthetic
-- ⚡ **Server Components** - Fast initial loads
-- 📊 **Analytics** - Mixpanel integration
-- 🔍 **SEO Optimized** - Meta tags, Open Graph
-- 🌙 **Dark Mode** - System preference + toggle
+- **🌍 Internationalization**: Native support for English and Turkish via `next-intl`.
+  - Automatic language detection.
+  - SEO-friendly URL structure (`/en/...`, `/tr/...`).
+- **⚡ Performance**: Built on Next.js 16 App Router with Server Components.
+- **🎨 Design System**: Custom "Polished Authenticity" theme using Tailwind CSS 4 variables.
+- **🌑 Dark Mode**: System-aware theme switching via `next-themes`.
+- **📝 Markdown Blog**: Renders blog posts from local Markdown files with `remark`/`rehype`.
+- **🔍 SEO**: Dynamic metadata, Open Graph tags, and structured data.
 
 ---
 
-## 🛠️ Installation
+## 🛠️ Setup & Installation
 
-### 1. Environment Variables
+### 1. Environment
+Create a `.env.local` file:
 
 ```bash
 cp env.example .env.local
 ```
 
-Edit `.env.local`:
+Fill in your Firebase Public Config (safe to expose to client):
 
 ```bash
-# Firebase (from Firebase Console → Project Settings → Your Apps)
-NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project_id.firebaseapp.com
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project_id.firebasestorage.app
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
-
-# Mixpanel (optional)
-NEXT_PUBLIC_MIXPANEL_TOKEN=your_mixpanel_token
-NEXT_PUBLIC_MIXPANEL_HOST=https://api-eu.mixpanel.com
+NEXT_PUBLIC_FIREBASE_API_KEY=...
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=...
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=...
+# ...
 ```
 
-### 2. Install & Run
-
+### 2. Run Development Server
 ```bash
-npm install
 npm run dev
+# or from root: npm run dev:website
 ```
-
-Open [http://localhost:3000](http://localhost:3000)
+Access at [http://localhost:3000](http://localhost:3000).
 
 ---
 
-## 📁 Structure
+## 🌍 Internationalization (i18n)
+
+We use **`next-intl`** for translations.
+
+### Adding Translations
+1. Navigate to `messages/`.
+2. Add keys to both `en.json` and `tr.json`.
+
+**en.json:**
+```json
+{
+  "Hero": {
+    "title": "Technical Product Manager"
+  }
+}
+```
+
+**tr.json:**
+```json
+{
+  "Hero": {
+    "title": "Teknik Ürün Yöneticisi"
+  }
+}
+```
+
+### Usage in Components
+```tsx
+import { useTranslations } from 'next-intl';
+
+export default function Hero() {
+  const t = useTranslations('Hero');
+  return <h1>{t('title')}</h1>;
+}
+```
+
+---
+
+## 📝 Adding Content
+
+### Blog Posts
+Blog posts are stored as Markdown files in `content/blog/`.
+
+1. Create a new file: `content/blog/my-new-post.md`
+2. Add Frontmatter:
+
+```markdown
+---
+title: "Building an Agentic Portfolio"
+date: "2024-03-20"
+excerpt: "How I built this website using Next.js 16..."
+image: "/images/blog/cover.jpg"
+tags: ["Next.js", "AI"]
+---
+
+Start writing your content here...
+```
+
+### Static Data
+Some data (like navigation links) is stored in `lib/constants.ts` or Translation files.
+Dynamic data (Projects, Experience) is fetched from **Firestore**.
+
+---
+
+## 🧩 Tech Stack
+
+- **Framework**: Next.js 16
+- **Styling**: Tailwind CSS 4 + CSS Variables
+- **Content**: `react-markdown`, `rehype-raw`, `rehype-sanitize`
+- **Icons**: `lucide-react`
+- **Data Fetching**: Direct Firestore SDK (Client-side) or Server Actions.
+
+---
+
+## 📂 Folder Structure
 
 ```
 website/
-├── app/              # Next.js App Router
-│   └── [locale]/     # i18n routes
-├── components/       # React components
-├── lib/              # Firebase, utilities
-├── messages/         # i18n translations (en.json, tr.json)
-└── content/          # Blog markdown files
+├── app/
+│   ├── [locale]/       # Localized Routes (e.g., /en/blog)
+│   ├── globals.css     # CSS Variables & Tailwind Directives
+│   └── not-found.tsx   # 404 Page
+│
+├── components/
+│   ├── sections/       # Landing Page Sections (Hero, etc.)
+│   └── ui/             # Atomic Components
+│
+├── content/
+│   └── blog/           # Markdown Files
+│
+├── messages/           # Translation Files (en.json, tr.json)
+└── lib/                # Utilities & Firebase Logic
 ```
-
----
-
-## 🔒 Security
-
-This app is **read-only**. It cannot modify the database.
-
-- ✅ Public read access via Firestore rules
-- ❌ Write access blocked
-- ✅ Content managed via [Admin CMS](../admin/README.md)
 
 ---
 

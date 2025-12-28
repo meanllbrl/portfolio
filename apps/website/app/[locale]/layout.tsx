@@ -8,6 +8,7 @@ import {ThemeProvider} from '@/components/ThemeProvider';
 import {Navigation} from '@/components/Navigation';
 import {MixpanelProvider} from '@/components/MixpanelProvider';
 import {Suspense} from 'react';
+import {Toaster} from 'sonner';
 
 import {getPersonalData} from '@/lib/firestore';
 
@@ -61,6 +62,7 @@ export default async function LocaleLayout({
               <main className="flex-grow pt-24">
                 {children}
               </main>
+              <Toaster />
             </div>
           </NextIntlClientProvider>
         </ThemeProvider>

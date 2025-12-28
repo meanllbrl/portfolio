@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Briefcase, GraduationCap, FileText, Trophy } from "lucide-react";
+import { LayoutDashboard, Briefcase, GraduationCap, FileText, Trophy, MessageSquare } from "lucide-react";
 import clsx from "clsx";
 import { ModeToggle } from "./ModeToggle";
 
@@ -14,6 +14,7 @@ const navItems = [
 
     { name: "Achievements", href: "/achievements", icon: Trophy },
     { name: "Education", href: "/education", icon: GraduationCap },
+    { name: "Recommendations", href: "/recommendations", icon: MessageSquare },
 ];
 
 export function Sidebar() {

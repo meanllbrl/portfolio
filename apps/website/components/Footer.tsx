@@ -6,6 +6,7 @@ import {Github, Linkedin, Mail} from 'lucide-react';
 import { trackEvent } from '@/lib/mixpanel';
 import { useEffect, useState } from 'react';
 import { getPersonalData, PersonalData } from '@/lib/firestore';
+import { Achievements } from '@/components/Achievements';
 
 export function Footer() {
   const t = useTranslations('footer');
@@ -40,7 +41,7 @@ export function Footer() {
 
   return (
     <footer className="border-t-3 border-ink mt-32 bg-white dark:bg-card">
-      <div className="container mx-auto px-5 py-16 max-w-[1100px]">
+      <div className="container mx-auto px-5 py-16 max-w-4xl">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 mb-16">
           {/* Brand Column */}
           <div className="flex flex-col gap-6">
@@ -58,6 +59,10 @@ export function Footer() {
                  {data?.tagline || ""}
             </p>
             )}
+            
+            <div className="pt-2">
+              <Achievements />
+            </div>
           </div>
 
           {/* Navigation Column */}

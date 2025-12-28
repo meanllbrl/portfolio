@@ -30,7 +30,7 @@ export default async function BlogPostPage({
   }
 
   return (
-    <div className="container mx-auto px-5 py-20 max-w-[800px] min-h-screen flex flex-col">
+    <div className="container mx-auto px-5 py-20 max-w-4xl min-h-screen flex flex-col">
       <ReadTimeTracker type="blog_post" slug={slug} title={post.title} />
       <article className="flex-grow">
         <header className="mb-12 text-center">

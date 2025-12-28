@@ -113,3 +113,15 @@ export interface Achievement {
     date?: string;
 }
 
+export interface Recommendation {
+  id?: string;
+  name: string;
+  thought: string;
+  status: 'draft' | 'published';
+  // Always store/transport this as an ISO string (Firestore Timestamp is normalized in server actions).
+  createdAt: string;
+  photoUrl?: string;
+  linkedinUrl?: string;
+  title?: string;
+  subtitle?: string;
+}

@@ -22,7 +22,7 @@ export default async function ProjectsPage({
   const allTags = Array.from(new Set(projects.flatMap((p: any) => p.tags || []))).sort();
 
   return (
-    <div className="container mx-auto px-5 py-20 max-w-[1100px] min-h-screen flex flex-col">
+    <div className="container mx-auto px-5 py-20 max-w-4xl min-h-screen flex flex-col">
       <div className="flex-grow">
         <h1 className="font-heading font-black text-5xl md:text-6xl mb-12 lowercase">{t('projects')}</h1>
         <ProjectSearch initialProjects={projects} allTags={allTags} />

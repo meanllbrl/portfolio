@@ -5,7 +5,7 @@ export default function PrivacyPolicyPage() {
   const t = useTranslations('privacy');
 
   return (
-    <div className="container mx-auto px-5 py-20 max-w-[800px] min-h-screen flex flex-col">
+    <div className="container mx-auto px-5 py-20 max-w-4xl min-h-screen flex flex-col">
       <article className="flex-grow">
         <h1 className="font-heading font-black text-4xl md:text-5xl mb-12 uppercase tracking-tight">
           {t('title')}

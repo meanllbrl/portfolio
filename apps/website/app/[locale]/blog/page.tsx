@@ -15,7 +15,7 @@ export default async function BlogPage({
   const t = await import(`@/messages/${locale}.json`).then((m) => m.default.blog);
 
   return (
-    <div className="container mx-auto px-5 py-20 max-w-[1100px] min-h-screen flex flex-col">
+    <div className="container mx-auto px-5 py-20 max-w-4xl min-h-screen flex flex-col">
       <div className="flex-grow">
         <h1 className="font-heading font-black text-5xl md:text-6xl mb-12 lowercase">{t.title}</h1>
         <BlogSearch initialPosts={posts} allTags={tags} />

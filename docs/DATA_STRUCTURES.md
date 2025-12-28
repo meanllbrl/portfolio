@@ -1,6 +1,6 @@
 # Data Structures (Firestore Schema)
 
-The application uses Google Cloud Firestore (NoSQL). Below are the primary collections and their document structures.
+The application uses Google Cloud Firestore (NoSQL). Below are the primary collections and their document structures, formatted as TypeScript interfaces for clarity.
 
 ---
 
@@ -8,35 +8,50 @@ The application uses Google Cloud Firestore (NoSQL). Below are the primary colle
 
 | Collection | Purpose |
 |------------|---------|
-| `projects` | Portfolio projects |
-| `experiences` | Work history |
-| `educations` | Academic history |
-| `posts` | Blog posts |
-| `settings/hero` | Global profile data |
+| `projects` | Portfolio projects & case studies |
+| `experiences` | Professional work history |
+| `educations` | Academic background |
+| `achievements` | Awards, certifications, and honors |
+| `posts` | Blog posts and articles |
+| `recommendations` | User-submitted testimonials & thoughts |
+| `settings/hero` | Global profile and landing page data |
 
 ---
 
 ## 1. `projects`
 
-Stores portfolio projects.
+Stores detailed information about projects, including media galleries and relations.
 
 ```typescript
 interface Project {
-  id: string;              // Auto-generated ID
+  id: string;              // Unique identifier (e.g., "rovo")
   title: string;
   subtitle: string;
-  description: string;     // Markdown supported
-  tags: string[];          // e.g., ["React", "Firebase"]
-  image: string;           // Cover image URL
-  smallImage?: string;     // Icon URL for related links (1:1 ratio)
-  link: string;            // External or internal link
-  featured: number;        // 0=Hidden, 1=Standard, 2+=Featured on homepage
-  status: string;          // e.g., "Ongoing", "Completed"
+  description: string;     // Detailed Markdown content
+  image: string;           // Main cover image URL
+  smallImage: string;      // Thumbnail/Icon URL
+  featured: number;        // 0=Hidden, 1=Standard, 2+=High Priority
+  status: string;          // e.g., "Completed", "Ongoing", "Closed"
+  sortOrder: number;       // Manual sorting index
+  githubUrl: string;       // Repository link
+  link: string;            // Live demo link
+  tags: string[];          // e.g., ["Flutter", "Firebase", "AI"]
   
-  // Relations (managed by Admin, read-only on Website)
-  relatedPosts: RelatedItemStub[];
+  gallery: GalleryItem[];  // Array of images/videos
+  changelog: any[];        // Future: Array of update logs
+  roadmap: any[];          // Future: Array of planned features
+  urls: Link[];            // Array of additional external links
+
+  // Relations (managed via Admin)
   relatedExperience: RelatedItemStub[];
   relatedEducation: RelatedItemStub[];
+  relatedPosts: RelatedItemStub[];
+}
+
+interface GalleryItem {
+  id: string;
+  type: 'image' | 'video';
+  url: string;
 }
 ```
 
@@ -44,22 +59,20 @@ interface Project {
 
 ## 2. `experiences`
 
-Stores work history.
+Stores professional work history and impact.
 
 ```typescript
 interface Experience {
   id: string;
-  title: string;           // Company Name
-  workTitle: string;       // Role/Position
-  description: string;     // Markdown description
-  years: string;           // "2020 - Present"
-  image?: string;          // Company Logo
-  
-  urls: Link[];            // External links
+  title: string;           // Company Name (e.g., "Rovo")
+  workTitle: string;       // Role (e.g., "Founder & TPM")
+  description: string;     // Bullet points in Markdown
+  years: string;           // Duration (e.g., "2023 - 2025")
+  image: string;           // Company logo URL
+  urls: Link[];            // e.g., Website, App Store links
   
   // Relations
   relatedProjects: RelatedItemStub[];
-  relatedPosts: RelatedItemStub[];
 }
 ```
 
@@ -67,17 +80,19 @@ interface Experience {
 
 ## 3. `educations`
 
-Stores academic history.
+Stores academic history and school-related projects.
 
 ```typescript
 interface Education {
   id: string;
-  title: string;           // School Name
-  department: string;      // Degree
-  years: string;
-  gpa: string;
+  title: string;           // Institution Name
+  department: string;      // Field of study
+  years: string;           // e.g., "2019 - 2023"
+  gpa: string;             // Grade point average
+  sortOrder: number;
+  urls: Link[];            // School website or project links
   
-  urls: Link[];
+  // Relations
   relatedProjects: RelatedItemStub[];
   relatedPosts: RelatedItemStub[];
 }
@@ -85,45 +100,84 @@ interface Education {
 
 ---
 
-## 4. `posts`
+## 4. `achievements`
 
-Stores blog posts.
+Stores awards, honors, and specific professional milestones.
 
 ```typescript
-interface Post {
+interface Achievement {
   id: string;
-  title: string;
-  slug: string;            // URL friendly slug
-  excerpt: string;
-  content: string;         // Full Markdown content
-  date: string;            // ISO Date
-  coverImage: string;
-  status: 'Draft' | 'Published';
-  tags: string[];
-
-  // Relations
-  relatedProjects: RelatedItemStub[];
+  title: string;           // Name of the award
+  description: string;     // Brief context
+  date: string;            // Year or month/year
+  icon: string;            // Icon identifier or emoji
+  sortOrder: number;
 }
 ```
 
 ---
 
-## 5. `settings/hero`
+## 5. `posts`
 
-A single document storing global profile data.
+Stores blog content and article metadata.
+
+```typescript
+interface Post {
+  id: string;
+  title: string;
+  slug: string;            // URL-friendly path (e.g., "hello-world")
+  excerpt: string;         // Short summary for cards
+  content: string;         // Full Markdown body
+  date: string;            // ISO Date string
+  coverImage: string;      // Hero image
+  smallImage: string;      // Thumbnail
+  status: 'Draft' | 'Published';
+  tags: string[];
+  
+  // Relations
+  relatedProjects: RelatedItemStub[];
+  relatedExperience: RelatedItemStub[];
+  relatedEducation: RelatedItemStub[];
+}
+```
+
+---
+
+## 6. `recommendations`
+
+Stores user-submitted testimonials and professional recommendations.
+
+```typescript
+interface Recommendation {
+  id: string;
+  name: string;            // Submitter's name
+  thought: string;         // The testimonial content
+  status: 'draft' | 'published';
+  createdAt: Timestamp;    // Firestore Server Timestamp
+  photoUrl?: string;       // Admin-assigned profile photo
+  linkedinUrl?: string;    // Admin-assigned LinkedIn link
+}
+```
+
+---
+
+## 7. `settings/hero`
+
+A singleton document for global site configuration and profile data.
 
 ```typescript
 interface HeroData {
-  greeting: string;        // "hi [name] here. 👋"
-  role: string;            // "Technical Product Manager"
-  description: string;
-  logoText: string;        // Initials for logo (e.g., "MN.")
-  imageUrl?: string;
-  resumeUrl?: string;
+  fullName: string;        // "Mehmet Nuraydın"
+  greeting: string;        // "hi mehmet here. 👋"
+  role: string;            // Professional tagline
+  description: string;     // Short bio
+  logoText: string;        // Navigation logo (e.g., "MN.")
+  imageUrl: string;        // Profile picture
+  resumeUrl: string;       // Link to PDF
   socials: {
+    email: string;
     github: string;
     linkedin: string;
-    email: string;
   };
 }
 ```
@@ -134,37 +188,39 @@ interface HeroData {
 
 ### `RelatedItemStub`
 
-Lightweight reference stored on documents to avoid N+1 queries.
+Lightweight snapshots of related entities stored directly on documents to enable high-performance, single-query page loads.
 
 ```typescript
 interface RelatedItemStub {
   id: string;
   title: string;
-  url: string;             // Computed URL (e.g., /projects/rovo)
-  smallImage?: string;     // Icon for UI display
-  featured?: number;       // Used for filtering in UI
+  url: string;             // Computed path
   type: 'project' | 'experience' | 'education' | 'post';
+  featured: number;
+  sortOrder: number;
+  coverImage: string;
+  smallImage: string;
+  date: string;
+  excerpt: string;
 }
 ```
 
 ### `Link`
 
-Simple external link structure.
+Standard structure for external URLs with optional icons.
 
 ```typescript
 interface Link {
   title: string;
   url: string;
-  icon?: string;           // Icon URL or icon name
+  icon?: string;           // Icon URL or Lucide icon name
 }
 ```
 
 ---
 
-## Two-Way Sync
+## Data Management Strategy
 
-When a Project is linked to an Experience:
-1. The Project stores the Experience as a `RelatedItemStub`
-2. The Experience stores the Project as a `RelatedItemStub`
-
-This denormalization optimizes read performance (O(1) lookups) at the cost of write complexity (handled by Admin CMS).
+1.  **Denormalization**: We store `RelatedItemStub` on both sides of a relationship (e.g., Project ↔ Experience). This ensures the **Website** can render related items instantly without complex joins or multiple database roundtrips.
+2.  **Admin Sync**: The **Admin CMS** is responsible for maintaining referential integrity. When a Project's title is updated, all `RelatedItemStub` references in other collections are updated automatically.
+3.  **Markdown First**: All long-form text (descriptions, content) is stored as Markdown to remain platform-agnostic.

@@ -1,4 +1,4 @@
-import { collection, getDocs, query, orderBy, limit, doc, getDoc } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, limit, doc, getDoc, where, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "./firebase";
 import { sortProjectsByDate, parseDateRange } from "@/lib/utils";
 
@@ -77,6 +77,18 @@ export interface Post {
   tags?: string[];
   readTime?: string;
   smallImage?: string;
+}
+
+export interface Recommendation {
+  id: string;
+  name: string;
+  thought: string;
+  status: 'draft' | 'published';
+  createdAt: string | any; // ISO string or Timestamp
+  photoUrl?: string;
+  linkedinUrl?: string;
+  title?: string;
+  subtitle?: string;
 }
 
 export async function getExperiences(): Promise<Experience[]> {
@@ -336,5 +348,47 @@ export async function getTags(): Promise<string[]> {
   } catch (error) {
     console.error("Error fetching tags:", error);
     return [];
+  }
+}
+
+export async function getRecommendations(): Promise<Recommendation[]> {
+  try {
+    const q = query(
+      collection(db, "recommendations"),
+      where("status", "==", "published")
+      // orderBy("createdAt", "desc") // May require composite index
+    );
+    const querySnapshot = await getDocs(q);
+    const items = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    })) as Recommendation[];
+    
+    // Sort in memory if index is missing
+    items.sort((a, b) => {
+        const timeA = a.createdAt?.seconds || 0;
+        const timeB = b.createdAt?.seconds || 0;
+        return timeB - timeA;
+    });
+    
+    return items;
+  } catch (error) {
+    console.error("Error fetching recommendations:", error);
+    return [];
+  }
+}
+
+export async function addRecommendation(data: { name: string; thought: string }) {
+  try {
+    const docRef = await addDoc(collection(db, "recommendations"), {
+      name: data.name,
+      thought: data.thought,
+      status: "draft",
+      createdAt: serverTimestamp(),
+    });
+    return docRef.id;
+  } catch (error) {
+    console.error("Error adding recommendation:", error);
+    throw error;
   }
 }
