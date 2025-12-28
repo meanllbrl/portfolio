@@ -9,6 +9,12 @@ A modern, bilingual portfolio website ecosystem with a public-facing site and a 
 
 ---
 
+## 🌐 Live Demo
+
+Check out the live portfolio at **[nuraydin.com](https://nuraydin.com)** to see it in action!
+
+---
+
 ## 🎯 Project Philosophy
 
 This portfolio is designed to be **"Agentic-First"** and **AI-Native**. It serves as a living proof of concept for:
@@ -16,6 +22,8 @@ This portfolio is designed to be **"Agentic-First"** and **AI-Native**. It serve
 - **AI Integration**: Prepared for future agentic workflows.
 - **Global Reach**: First-class bilingual support (Turkish/English).
 - **Polished Authenticity**: A design system that is bold, playful, and minimalist.
+
+**Feel free to fork this project and make it your own!** No attribution required—use it however you'd like. 🚀
 
 ---
 
@@ -174,6 +182,23 @@ service cloud.firestore {
   }
 }
 ```
+
+### Recommended Firebase Storage Rules
+
+**⚠️ Important**: The following rules allow public read access to all files. If public read access is a security concern for your use case, you should update these rules accordingly.
+
+```javascript
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}
+```
+
 ---
 
 ## 📄 License
