@@ -77,7 +77,7 @@ export function Navigation() {
           <Link
             href="/"
             className="text-lg font-heading font-bold hover:text-primary transition-colors"
-            onClick={(e) => { handleHomeClick(e); setIsMenuOpen(false); }}
+            onClick={(e: MouseEvent<HTMLAnchorElement>) => { handleHomeClick(e); setIsMenuOpen(false); }}
           >
             {t('home')}
           </Link>
