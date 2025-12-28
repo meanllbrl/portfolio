@@ -77,6 +77,9 @@ export interface Post {
   tags?: string[];
   readTime?: string;
   smallImage?: string;
+  relatedProjects?: { id: string; title: string; url: string; smallImage?: string; featured?: number; sortOrder?: number }[];
+  relatedExperience?: { id: string; title: string; url: string; smallImage?: string; featured?: number; sortOrder?: number }[];
+  relatedEducation?: { id: string; title: string; url: string; smallImage?: string; featured?: number; sortOrder?: number }[];
 }
 
 export interface Recommendation {
