@@ -88,6 +88,6 @@
   }
 
   .heading-hero {
-    @apply font-heading font-black uppercase text-5xl md:text-7xl leading-tight tracking-tight;
+    @apply font-heading font-black uppercase text-5xl md:text-6xl leading-tight tracking-tight;
   }
 }
