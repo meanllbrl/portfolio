@@ -10,7 +10,7 @@ interface RecentPostsProps {
 
 export function RecentPosts({ posts }: RecentPostsProps) {
   return (
-    <div className="card p-0 border-2 bg-white dark:bg-black divide-y-2 divide-gray-100 dark:divide-gray-800">
+    <div className="card p-0 border-2 bg-white dark:bg-card divide-y-2 divide-gray-100 dark:divide-gray-800">
       {posts.map((post) => (
         <Link
           key={post.slug}

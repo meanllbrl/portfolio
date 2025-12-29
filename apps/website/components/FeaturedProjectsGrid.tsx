@@ -63,7 +63,7 @@ export function FeaturedProjectsGrid({ projects }: FeaturedProjectsGridProps) {
         {isExpanded && (
           <Link 
             href="/projects" 
-            className="group flex items-center gap-2 px-6 py-3 bg-ink text-white border-2 border-ink rounded-full font-bold text-sm hover:opacity-90 transition-all shadow-sm"
+            className="group flex items-center gap-2 px-6 py-3 bg-ink text-white dark:text-black border-2 border-ink rounded-full font-bold text-sm hover:opacity-90 transition-all shadow-sm"
           >
             See All Projects
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

@@ -70,7 +70,7 @@ export const ProjectGallery: FC<ProjectGalleryProps> = ({ gallery }) => {
                 {/* Left Button */}
                 <button
                     onClick={() => scroll('left')}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/80 dark:bg-black/80 p-3 rounded-full border-2 border-ink shadow-sm opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0 hover:scale-110 hidden md:block"
+                    className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-white/80 dark:bg-card/80 p-3 rounded-full border-2 border-ink shadow-sm opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0 hover:scale-110 hidden md:block"
                     aria-label="Scroll left"
                 >
                     <ChevronLeft className="w-6 h-6" />
@@ -79,7 +79,7 @@ export const ProjectGallery: FC<ProjectGalleryProps> = ({ gallery }) => {
                 {/* Right Button */}
                 <button
                     onClick={() => scroll('right')}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/80 dark:bg-black/80 p-3 rounded-full border-2 border-ink shadow-sm opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0 hover:scale-110 hidden md:block"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-white/80 dark:bg-card/80 p-3 rounded-full border-2 border-ink shadow-sm opacity-0 group-hover:opacity-100 transition-opacity disabled:opacity-0 hover:scale-110 hidden md:block"
                     aria-label="Scroll right"
                 >
                     <ChevronRight className="w-6 h-6" />

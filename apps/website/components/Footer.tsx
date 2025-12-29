@@ -86,7 +86,7 @@ export function Footer() {
                  {data?.socials?.email && (
                  <a
                     href={`mailto:${data.socials.email}`}
-                    className="group p-3 border-2 border-ink rounded-full hover:bg-primary hover:text-white hover:-translate-y-1 transition-all duration-200 shadow-[3px_3px_0px_var(--ink-black)] hover:shadow-[5px_5px_0px_var(--ink-black)] bg-white dark:bg-black text-ink"
+                    className="group p-3 border-2 border-ink rounded-full hover:bg-primary hover:text-white hover:-translate-y-1 transition-all duration-200 shadow-[3px_3px_0px_var(--ink-black)] hover:shadow-[5px_5px_0px_var(--ink-black)] bg-white dark:bg-card text-ink"
                     aria-label="Email"
                     onClick={() => handleSocialClick('Email', `mailto:${data.socials.email}`)}
                   >
@@ -98,7 +98,7 @@ export function Footer() {
                     href={data.socials.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group p-3 border-2 border-ink rounded-full hover:bg-[#0077b5] hover:text-white hover:-translate-y-1 transition-all duration-200 shadow-[3px_3px_0px_var(--ink-black)] hover:shadow-[5px_5px_0px_var(--ink-black)] bg-white dark:bg-black text-ink"
+                    className="group p-3 border-2 border-ink rounded-full hover:bg-[#0077b5] hover:text-white hover:-translate-y-1 transition-all duration-200 shadow-[3px_3px_0px_var(--ink-black)] hover:shadow-[5px_5px_0px_var(--ink-black)] bg-white dark:bg-card text-ink"
                      aria-label="LinkedIn"
                      onClick={() => handleSocialClick('LinkedIn', data.socials.linkedin)}
                   >
@@ -110,7 +110,7 @@ export function Footer() {
                     href={data.socials.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group p-3 border-2 border-ink rounded-full hover:bg-[#333] hover:text-white hover:-translate-y-1 transition-all duration-200 shadow-[3px_3px_0px_var(--ink-black)] hover:shadow-[5px_5px_0px_var(--ink-black)] bg-white dark:bg-black text-ink"
+                    className="group p-3 border-2 border-ink rounded-full hover:bg-[#333] hover:text-white hover:-translate-y-1 transition-all duration-200 shadow-[3px_3px_0px_var(--ink-black)] hover:shadow-[5px_5px_0px_var(--ink-black)] bg-white dark:bg-card text-ink"
                      aria-label="GitHub"
                      onClick={() => handleSocialClick('GitHub', data.socials.github)}
                   >

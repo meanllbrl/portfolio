@@ -83,7 +83,7 @@ export function WorkExperience() {
           {t('education')}
         </button>
       </div>
-      <div className="card p-0 overflow-hidden border-2 bg-white dark:bg-black">
+      <div className="card p-0 overflow-hidden border-2 bg-white dark:bg-card">
         {loading ? (
           <div className="p-6 text-center text-gray-500">Loading...</div>
         ) : (activeTab === 'work' ? workData : eduData).length === 0 ? (

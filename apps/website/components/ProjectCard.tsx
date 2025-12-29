@@ -67,7 +67,7 @@ export function ProjectCard({
           )}
         </div>
 
-        <div className="p-6 flex flex-col flex-grow bg-white dark:bg-black">
+        <div className="p-6 flex flex-col flex-grow bg-white dark:bg-card">
           <div className="mb-4">
             <h3 className="font-heading font-bold text-2xl mb-1 group-hover:text-primary transition-colors">
               {title}
@@ -98,7 +98,7 @@ export function ProjectCard({
       </Link>
 
       {/* Buttons moved outside the Link but inside the card container's bottom padding */}
-      <div className="px-6 pb-6 flex gap-3 mt-auto bg-white dark:bg-black">
+      <div className="px-6 pb-6 flex gap-3 mt-auto bg-white dark:bg-card">
         {link && (
           <a
             href={link}

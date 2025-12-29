@@ -40,7 +40,7 @@ export function Navigation() {
 
   return (
     <nav className="fixed top-5 left-1/2 transform -translate-x-1/2 w-[90%] max-w-[600px] z-50">
-      <div className="bg-white/90 dark:bg-black/90 backdrop-blur-md border-3 border-ink rounded-full px-6 py-3 shadow-hard flex items-center justify-between">
+      <div className="bg-white/90 dark:bg-card/90 backdrop-blur-md border-3 border-ink rounded-full px-6 py-3 shadow-hard flex items-center justify-between">
         <Link
           href="/"
           className="font-heading font-black text-xl tracking-tight hover:scale-105 transition-transform"
@@ -73,7 +73,7 @@ export function Navigation() {
       </div>
 
       {isMenuOpen && (
-        <div className="absolute top-full left-0 w-full mt-4 bg-white/95 dark:bg-black/95 backdrop-blur-md border-3 border-ink rounded-3xl shadow-hard p-6 flex flex-col items-center gap-6 md:hidden">
+        <div className="absolute top-full left-0 w-full mt-4 bg-white/95 dark:bg-card/95 backdrop-blur-md border-3 border-ink rounded-3xl shadow-hard p-6 flex flex-col items-center gap-6 md:hidden">
           <Link
             href="/"
             className="text-lg font-heading font-bold hover:text-primary transition-colors"

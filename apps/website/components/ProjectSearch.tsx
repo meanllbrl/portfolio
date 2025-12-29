@@ -36,7 +36,7 @@ export function ProjectSearch({ initialProjects, allTags }: ProjectSearchProps) 
             {/* Unified Filter Bar - "Polished Authenticity" Style */}
             <div className="relative w-full max-w-2xl mx-auto z-30">
                 <div
-                    className={`flex items-center bg-white dark:bg-black border-[3px] border-[#121212] dark:border-white rounded-full 
+                    className={`flex items-center bg-white dark:bg-card border-[3px] border-[#121212] dark:border-white rounded-full 
                                shadow-[6px_6px_0px_#121212] dark:shadow-[6px_6px_0px_#ffffff] 
                                transition-all focus-within:shadow-[8px_8px_0px_#121212] dark:focus-within:shadow-[8px_8px_0px_#ffffff]
                                focus-within:translate-x-[-2px] focus-within:translate-y-[-2px]`}
@@ -92,9 +92,9 @@ export function ProjectSearch({ initialProjects, allTags }: ProjectSearchProps) 
 
                         {/* Dropdown Menu */}
                         {isDropdownOpen && (
-                            <div className="absolute top-full right-0 mt-4 w-72 bg-white dark:bg-[#121212] border-[3px] border-[#121212] dark:border-white rounded-2xl shadow-[6px_6px_0px_#121212] dark:shadow-[6px_6px_0px_#ffffff] overflow-hidden z-50">
+                            <div className="absolute top-full right-0 mt-4 w-72 bg-white dark:bg-card border-[3px] border-[#121212] dark:border-white rounded-2xl shadow-[6px_6px_0px_#121212] dark:shadow-[6px_6px_0px_#ffffff] overflow-hidden z-50">
                                 {/* Tag Search Input */}
-                                <div className="p-3 border-b-2 border-gray-100 dark:border-gray-800 sticky top-0 bg-white dark:bg-[#121212]">
+                                <div className="p-3 border-b-2 border-gray-100 dark:border-gray-800 sticky top-0 bg-white dark:bg-card">
                                     <div className="relative">
                                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-3 h-3" />
                                         <input

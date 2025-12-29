@@ -39,20 +39,22 @@
 }
 
 .dark {
-  /* Dark mode */
-  --bg-primary: #121212;
-  --bg-secondary: #000000;
-  --text-primary: #FAFAFA;
-  --text-secondary: #A0A0A0;
-  --border-color: #FAFAFA;
-  --card-bg: #1E1E1E;
+  /* Dark mode - Refined Professional Palette */
+  --bg-primary: #18181B; /* Zinc 900 - Lighter, softer black */
+  --bg-secondary: #27272A; /* Zinc 800 */
+  --text-primary: #F4F4F5; /* Zinc 100 */
+  --text-secondary: #A1A1AA; /* Zinc 400 - Lighter for better readability */
+  --border-color: #F4F4F5; /* Zinc 100 - Keeps high contrast for borders */
+  --card-bg: #27272A; /* Zinc 800 - Lighter card background */
+  --paper: #27272A; /* Ensure paper matches card bg in dark mode */
 
   /* Accents */
   --accent-primary: #FFD700;
-  --accent-secondary: #2E5BFF;
+  --accent-secondary: #FF8C00; /* Dark Orange instead of Blue */
+  --electric-blue: #FF8C00; /* Overriding primary blue with orange for dark mode */
 
   /* Re-map for dark mode consistency */
-  --ink-black: #FAFAFA;
+  --ink-black: #F4F4F5;
   /* Borders become white in dark mode per style guide */
 }
 
