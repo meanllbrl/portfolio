@@ -56,7 +56,7 @@ export function RecommendationForm() {
         return (
             <button
                 onClick={() => setIsOpen(true)}
-                className="group w-full max-w-md mx-auto flex items-center justify-center gap-3 p-4 bg-secondary text-ink font-heading font-bold uppercase tracking-wide border-3 border-ink rounded-full shadow-hard hover:shadow-hard-hover hover:-translate-y-1 transition-all duration-200"
+                className="group w-full max-w-md mx-auto flex items-center justify-center gap-3 p-4 bg-secondary dark:bg-primary text-ink dark:text-white font-heading font-bold uppercase tracking-wide border-3 border-ink rounded-full shadow-hard hover:shadow-hard-hover hover:-translate-y-1 transition-all duration-200"
             >
                 <Handshake className="w-6 h-6 group-hover:scale-110 group-hover:rotate-3 transition-transform" />
                 Did we work together? Leave your thoughts
