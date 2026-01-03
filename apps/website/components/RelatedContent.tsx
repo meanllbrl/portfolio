@@ -102,6 +102,7 @@ export function RelatedContent({ items, title = "Related Content" }: RelatedCont
                   src={item.smallImage || item.coverImage || ''}
                   alt={item.title}
                   fill
+                  sizes="48px"
                   className="object-cover"
                 />
               ) : (

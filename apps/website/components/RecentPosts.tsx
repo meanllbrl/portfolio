@@ -24,6 +24,7 @@ export function RecentPosts({ posts }: RecentPostsProps) {
                   src={post.smallImage}
                   alt={post.title}
                   fill
+                  sizes="96px"
                   className="object-cover"
                 />
               </div>

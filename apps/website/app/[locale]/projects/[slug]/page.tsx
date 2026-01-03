@@ -86,6 +86,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                                 src={project.image}
                                 alt={project.title}
                                 fill
+                                sizes="(min-width: 896px) 896px, 100vw"
                                 className="object-cover"
                                 priority
                             />
@@ -147,6 +148,7 @@ export default async function ProjectDetailPage({ params }: Props) {
                                         src={link.icon}
                                         alt={link.title}
                                         fill
+                                        sizes="16px"
                                         className="object-cover"
                                     />
                                 </div>

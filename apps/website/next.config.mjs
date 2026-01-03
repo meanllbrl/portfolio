@@ -14,7 +14,13 @@ const nextConfig = {
     ],
     // Optional: Configure cache behavior
     // default is 60s for on-demand, 31536000 for static
-    minimumCacheTTL: 3600, // 1 hour cache for optimized images
+    minimumCacheTTL: 172800, // 48 hours cache for optimized images
+    // Limit deviceSizes to reduce generated variants (removed 2048, 3840)
+    deviceSizes: [640, 768, 1024, 1280, 1536, 1920],
+    // Limit imageSizes for fixed-size images (avatars, icons)
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Enable AVIF for better compression (optional, increases variants but reduces bandwidth)
+    formats: ['image/avif', 'image/webp'],
   },
 };
 

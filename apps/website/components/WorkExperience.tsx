@@ -105,6 +105,7 @@ export function WorkExperience() {
                           src={item.image}
                           alt={item.company || item.school}
                           fill
+                          sizes="64px"
                           className={`object-cover transition-opacity duration-300 ${imagesLoaded[item.id] ? 'opacity-100' : 'opacity-0'}`}
                           onLoad={() => handleImageLoad(item.id)}
                         />
@@ -160,7 +161,7 @@ export function WorkExperience() {
                         >
                           {link.icon ? (
                             <div className="w-4 h-4 rounded-full overflow-hidden relative">
-                              <Image src={link.icon} alt="Icon" fill className="object-cover" />
+                              <Image src={link.icon} alt="Icon" fill sizes="16px" className="object-cover" />
                             </div>
                           ) : (
                             <Globe className="w-3.5 h-3.5" />
@@ -183,7 +184,7 @@ export function WorkExperience() {
                           >
                             {project.smallImage ? (
                               <div className="w-4 h-4 rounded-full overflow-hidden relative">
-                                <Image src={project.smallImage} alt="Icon" fill className="object-cover" />
+                                <Image src={project.smallImage} alt="Icon" fill sizes="16px" className="object-cover" />
                               </div>
                             ) : (
                               <Globe className="w-3.5 h-3.5" />

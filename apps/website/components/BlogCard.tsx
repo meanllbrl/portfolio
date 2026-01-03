@@ -34,6 +34,7 @@ export function BlogCard({ post }: BlogCardProps) {
               src={displayImage}
               alt={post.title}
               fill
+              sizes="(min-width: 960px) 416px, (min-width: 768px) 50vw, 100vw"
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
           </div>
